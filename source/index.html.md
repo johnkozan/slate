@@ -1,239 +1,361 @@
----
-title: API Reference
+--- 
 
-language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
+title: ETHdb API 
 
-toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
+language_tabs: 
+   - shell 
 
-includes:
-  - errors
+toc_footers: 
+   - <a href='#'>Sign Up for a Developer Key</a> 
+   - <a href='https://github.com/lavkumarv'>Documentation Powered by lav</a> 
 
-search: true
----
+includes: 
+   - errors 
 
-# Introduction
+search: true 
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+--- 
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+# Introduction 
 
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Ethereum Blockchain explorer 
 
-# Authentication
+**Version:**  
 
-> To authorize, use this code:
+[API Documentation](http://ethdb.io/docs/api) 
 
-```ruby
-require 'kittn'
+# /ACCOUNT/{ADDRESS}
+## ***GET*** 
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+**Summary:** show Account
 
-```python
-import kittn
+**Description:** Returns Account information
 
-api = kittn.authorize('meowmeowmeow')
-```
+### HTTP Request 
+`***GET*** /account/{Address}` 
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+**Parameters**
 
-```javascript
-const kittn = require('kittn');
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Address | path | Account address | Yes | string |
 
-let api = kittn.authorize('meowmeowmeow');
-```
+**Responses**
 
-> Make sure to replace `meowmeowmeow` with your API key.
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+| 500 | Internal Server Error |
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+# /ACCOUNT/{ADDRESS}/CODE
+## ***GET*** 
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+**Summary:** code Account
 
-`Authorization: meowmeowmeow`
+**Description:** Returns code for contract.  Returns not found if Account is not a contract
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+### HTTP Request 
+`***GET*** /account/{Address}/code` 
 
-# Kittens
+**Parameters**
 
-## Get All Kittens
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Address | path | Account address | Yes | string |
 
-```ruby
-require 'kittn'
+**Responses**
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+| 500 | Internal Server Error |
 
-```python
-import kittn
+# /ACCOUNT/{ADDRESS}/MINED_BLOCKS
+## ***GET*** 
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+**Summary:** mined_blocks Account
 
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
+**Description:** Returns list of blocks mined by this Account
 
-```javascript
-const kittn = require('kittn');
+### HTTP Request 
+`***GET*** /account/{Address}/mined_blocks` 
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
+**Parameters**
 
-> The above command returns JSON structured like this:
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Address | path | Account address | Yes | string |
+| block | query | Return mined blocks begining from Block number | No | integer |
+| previous | query | When set to true, returns transactions Previous to the specified block number and transaction index | No | boolean |
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
+**Responses**
 
-This endpoint retrieves all kittens.
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+| 500 | Internal Server Error |
 
-### HTTP Request
+# /ACCOUNT/{ADDRESS}/MINED_UNCLES
+## ***GET*** 
 
-`GET http://example.com/api/kittens`
+**Summary:** mined_uncles Account
 
-### Query Parameters
+**Description:** Returns list of blocks mined by this Account
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+### HTTP Request 
+`***GET*** /account/{Address}/mined_uncles` 
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+**Parameters**
 
-## Get a Specific Kitten
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Address | path | Account address | Yes | string |
+| block | query | Return mined uncles begining from Block number | No | integer |
+| previous | query | When set to true, returns transactions Previous to the specified block number and transaction index | No | boolean |
 
-```ruby
-require 'kittn'
+**Responses**
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+| 500 | Internal Server Error |
 
-```python
-import kittn
+# /ACCOUNT/{ADDRESS}/TRANSACTIONS
+## ***GET*** 
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+**Summary:** transactions Account
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
+**Description:** Returns list of transactions with the From or To fields matching Address
 
-```javascript
-const kittn = require('kittn');
+### HTTP Request 
+`***GET*** /account/{Address}/transactions` 
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
+**Parameters**
 
-> The above command returns JSON structured like this:
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Address | path | Account address | Yes | string |
+| block | query | Return transactions begining from Block number. Defaults to latest block if not specified | No | integer |
+| internals | query | Include transaction messages (internal transactions) in results | No | boolean |
+| previous | query | When set to true, returns transactions Previous to the specified block number and transaction index | No | boolean |
+| txindex | query | Return transactions after transaction index in Block | No | integer |
 
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
+**Responses**
 
-This endpoint retrieves a specific kitten.
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+| 500 | Internal Server Error |
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+# /BLOCK/{HASHORHEIGHT}
+## ***GET*** 
 
-### HTTP Request
+**Summary:** show Block
 
-`GET http://example.com/kittens/<ID>`
+**Description:** Retuns Block information
 
-### URL Parameters
+### HTTP Request 
+`***GET*** /block/{HashOrHeight}` 
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+**Parameters**
 
-## Delete a Specific Kitten
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| HashOrHeight | path | Block hash or height | Yes | string |
 
-```ruby
-require 'kittn'
+**Responses**
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+| 500 | Internal Server Error |
 
-```python
-import kittn
+# /NETWORKS
+## ***GET*** 
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+**Summary:** list Networks
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
+**Description:** Retuns a list of supported Ethereum networks
 
-```javascript
-const kittn = require('kittn');
+### HTTP Request 
+`***GET*** /networks` 
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
+**Responses**
 
-> The above command returns JSON structured like this:
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
 
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
+# /NETWORKS/{ID}
+## ***GET*** 
 
-This endpoint retrieves a specific kitten.
+**Summary:** show Networks
 
-### HTTP Request
+**Description:** Network details
 
-`DELETE http://example.com/kittens/<ID>`
+### HTTP Request 
+`***GET*** /networks/{ID}` 
 
-### URL Parameters
+**Parameters**
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| ID | path |  | Yes | string |
 
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+| 500 | Internal Server Error |
+
+# /NETWORKS/{ID}/BLOCKS
+## ***GET*** 
+
+**Summary:** blocks Networks
+
+**Description:** Return list of recently mined blocks on this network
+
+### HTTP Request 
+`***GET*** /networks/{ID}/blocks` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| ID | path |  | Yes | string |
+| block | query | Optional block number to returns blocks begining at | No | integer |
+| previous | query | When set to true, returns transactions Previous to the specified block number and transaction index | No | boolean |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+| 500 | Internal Server Error |
+
+# /SEARCH
+## ***GET*** 
+
+**Summary:** search Search
+
+**Description:** Search the Blockchain
+
+### HTTP Request 
+`***GET*** /search` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| network | query | Search query | No | string |
+| query | query | Search query | Yes | string |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+
+# /SOURCE
+## ***GET*** 
+
+**Summary:** list Source
+
+**Description:** Returns list of public source repositories
+
+### HTTP Request 
+`***GET*** /source` 
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+| 500 | Internal Server Error |
+
+# /SOURCE/{TYPE}/{NAME}
+## ***GET*** 
+
+**Summary:** show Source
+
+**Description:** Returns information on source package
+
+### HTTP Request 
+`***GET*** /source/{Type}/{Name}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Name | path |  | Yes | string |
+| Type | path |  | Yes | string |
+| network | query |  | No | string |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+| 500 | Internal Server Error |
+
+# /TX/{HASH}
+## ***GET*** 
+
+**Summary:** show Transaction
+
+**Description:** Ethereum Transactions
+
+### HTTP Request 
+`***GET*** /tx/{Hash}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Hash | path | Transaction hash | Yes | string |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+| 500 | Internal Server Error |
+
+# /UNCLE/{HASH}
+## ***GET*** 
+
+**Summary:** show Uncle
+
+**Description:** Uncle Block
+
+### HTTP Request 
+`***GET*** /uncle/{Hash}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Hash | path | Transaction hash | Yes | string |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 404 | Not Found |
+| 500 | Internal Server Error |
+
+<!-- Converted with the swagger-to-slate https://github.com/lavkumarv/swagger-to-slate -->
